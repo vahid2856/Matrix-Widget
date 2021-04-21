@@ -1,12 +1,13 @@
 //import sdk from "./node_modules/matrix-js-sdk";
+console.log("Start");
 var sdk = require("matrix-js-sdk");
-console.log(sdk)
+console.log(sdk);
 console.log("--------------------------");
 
 
 const client = sdk.createClient("https://quranic.network");
 
-console.log(client)
+console.log(client);
 console.log("--------------------------");
 
 client.login("m.login.password", {"user": "@vahid_nadarkhani:quranic.network", "password": "invalidP1988"}).then((response) => {
