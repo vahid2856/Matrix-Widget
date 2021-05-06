@@ -2,30 +2,164 @@
 //import sdk from "./node_modules/matrix-js-sdk";
 console.log("Start");
 var sdk = require("matrix-js-sdk");
-console.log(sdk);
+//console.log(sdk);
 console.log("--------------------------");
 
 
-const client = sdk.createClient("https://quranic.network");
+//const client = sdk.createClient("https://quranic.network");
 
-console.log(client);
-console.log("--------------------------");
+//console.log(client);
+//console.log("--------------------------");
 
-client.login("m.login.password", {"user": "@vahid_nadarkhani:quranic.network", "password": "invalidP1988"}).then((response) => {
-    
-    const accessToken = response.access_token;
+//client.login("m.login.password", {"user": "@vahid_nadarkhani:quranic.network", "password": ""}).then((response) => {
+//	const accessToken = response.access_token;
+//	console.log(accessToken);
+//});
+//console.log("test")
+//console.log(accessToken);//quranic.network"
+//console.log("--------------------------");
+//start();
+const accessToken = "MDAxZGxvY2F0aW9uIHF1cmFuaWMubmV0d29yawowMDEzaWRlbnRpZmllciBrZXkKMDAxMGNpZCBnZW4gPSAxCjAwMzRjaWQgdXNlcl9pZCA9IEB2YWhpZF9uYWRhcmtoYW5pOnF1cmFuaWMubmV0d29yawowMDE2Y2lkIHR5cGUgPSBhY2Nlc3MKMDAyMWNpZCBub25jZSA9IGppUjI9Jk1UQTg3N1RuR3IKMDAyZnNpZ25hdHVyZSDcGkvyhbQ3NPmM1bTQGg4qw4QNIavaj7Di-sUOq54pawo";
+
+
+
+const client = sdk.createClient({
+    baseUrl: "https://quranic.network",
+    accessToken: accessToken,
+   userId: "@vahid_nadarkhani:quranic.network"
 });
 
-console.log(accessToken);
-console.log("--------------------------");
+console.log(client)
+//setTimeout(function () {console.log(client);  console.log(client.getAccessToken())}, 10000);
+//console.log(clinet.getAccessToken());
+start();
+//setTimeout(getRoomsList, 15000);
 
-// const accessToken = "MDAxZGxvY2F0aW9uIHF1cmFuaWMubmV0d29yawowMDEzaWRlbnRpZmllciBrZXkKMDAxMGNpZCBnZW4gPSAxCjAwMzRjaWQgdXNlcl9pZCA9IEB2YWhpZF9uYWRhcmtoYW5pOnF1cmFuaWMubmV0d29yawowMDE2Y2lkIHR5cGUgPSBhY2Nlc3MKMDAyMWNpZCBub25jZSA9IGppUjI9Jk1UQTg3N1RuR3IKMDAyZnNpZ25hdHVyZSDcGkvyhbQ3NPmM1bTQGg4qw4QNIavaj7Di-sUOq54pawo"
+function start() {
+  client.startClient();
+  client.once('sync', function(state, prevState, res) {
+	//console.log("-->1");
+	console.log('state ----> ', state);
+	//console.log("-->2");
+	setTimeout(getRoomsList, 1000);
+  });
+};
 
-// const client = sdk.createClient({
-//     baseUrl: "https://quranic.network",
-//     accessToken: accessToken,
-//     userId: "@vahid_nadarkhani:quranic.network"
-// });
+function getRoomsList() {
+console.log("---> in getRoomsList Function <---")
+  var rooms = client.getRooms();
+  console.log("rooms : ", rooms)
+  rooms.forEach(room => {
+  	//console.log(room.roomId);
+  });
+
+console.log("---> end of getRoomsList Function<---");
+
+for (var i=0; i <= rooms.length; i++){
+  var room = rooms[i];
+  if (room.name === "طراحی و پیاده سازی داشبورد مدیریتی") {
+    console.log(room.roomId);
+    var roomId = room.roomId;
+    break; 
+  }
+};
+
+if (roomId != null) {
+
+// ==========================================
+
+	/*
+		get room users list
+	*/
+
+
+var members = room.getJoinedMembers();
+members.forEach(member => {
+  console.log(member.name);
+});
+
+
+// ==========================================
+
+	/*
+		send message function
+	*/
+
+//  var content = {
+//    "body": "test msg from function!",
+//    "msgtype": "m.text"
+//  };
+
+//  client.sendEvent(roomId, "m.room.message", content, "").then((res) => {
+   // message sent successfully
+//  }).catch((err) => {
+//    console.log(err);
+//  });
+
+// ==========================================
+
+};
+
+//console.log(room)
+  //for (const [key, value] of Object.entries(room)) {
+    //console.log(key, value);
+    //console.log("-----------------------------------");
+
+    //if (key === "name" && value === "test"){
+     // var roomId = room[roomId];
+      //console.log(roomId);
+     // break;
+   // };
+ // };
+  //console.log(rooms[i]);
+  //console.log("--------------------")
+
+  //if (key === "roomId") {
+  //  console.log("roomId : ", value);
+  //  var roomId = value;
+  //}else if (key === "name") {
+  //  console.log("name : ", value);
+  //  var name = value;
+  //}
+//};
+
+
+//var testRoomId = rooms[10];
+
+//var content = {
+//    "body": "Hello World",
+//    "msgtype": "m.text"
+//};
+
+//client.sendEvent(testRoomId, "m.room.message", content, "").then((res) => {
+   // message sent successfully
+//}).catch((err) => {
+//    console.log(err);
+//});
+
+
+};
+
+
+//  var rooms = client.getRooms();
+  //rooms.forEach(room => {
+   // console.log(room.roomId);
+ // });
+//  setTimeout(getRoomsList, 5000);
+//};
+//setTimeout(getRoomsList, 10000);
+//console.log(client);
+
+//function getRoomsList() {
+//  client.startClient();
+//  var rooms = client.getRooms();
+//  console.log(rooms);
+//};
+//rooms.forEach(room => {
+//    console.log(room.roomId);
+//});
+
+
 
 },{"matrix-js-sdk":24}],2:[function(require,module,exports){
 function _defineProperty(obj, key, value) {
